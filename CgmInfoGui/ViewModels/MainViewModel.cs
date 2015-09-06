@@ -9,6 +9,7 @@ using CgmInfo;
 using CgmInfo.Commands;
 using CgmInfoGui.Traversal;
 using CgmInfoGui.ViewModels.Nodes;
+using CgmInfoGui.Visuals;
 using Microsoft.Win32;
 
 namespace CgmInfoGui.ViewModels
@@ -55,6 +56,20 @@ namespace CgmInfoGui.ViewModels
                 if (value != _apsNodes)
                 {
                     _apsNodes = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private VisualRoot _visualRoot;
+        public VisualRoot VisualRoot
+        {
+            get { return _visualRoot; }
+            set
+            {
+                if (value != _visualRoot)
+                {
+                    _visualRoot = value;
                     OnPropertyChanged();
                 }
             }
@@ -164,6 +179,8 @@ namespace CgmInfoGui.ViewModels
                     var xcfContext = new XCFDocumentContext();
                     var hotspotVisitor = new HotspotBuilderVisitor();
                     var hotspotContext = new HotspotContext();
+                    var visualVisitor = new GraphicalElementBuilderVisitor();
+                    var visualContext = new GraphicalElementContext();
                     Command command;
                     do
                     {
@@ -174,6 +191,7 @@ namespace CgmInfoGui.ViewModels
                             command.Accept(apsVisitor, apsContext);
                             command.Accept(xcfVisitor, xcfContext);
                             command.Accept(hotspotVisitor, hotspotContext);
+                            command.Accept(visualVisitor, visualContext);
                         }
                     } while (command != null);
                     return new
@@ -183,6 +201,7 @@ namespace CgmInfoGui.ViewModels
                         XCFDocument = xcfContext.XCF,
                         Hotspots = hotspotContext.RootLevel.OfType<HotspotNode>().ToList(),
                         MetafileProperties = reader.Properties,
+                        VisualRoot = visualContext.Visuals,
                     };
                 }
             });
@@ -192,6 +211,7 @@ namespace CgmInfoGui.ViewModels
             XCFDocument = result.XCFDocument;
             Hotspots = result.Hotspots;
             MetafileProperties = result.MetafileProperties;
+            VisualRoot = result.VisualRoot;
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")

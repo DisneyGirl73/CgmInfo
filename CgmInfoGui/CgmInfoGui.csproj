@@ -78,10 +78,14 @@
     <Compile Include="Controls\SearchPanel.xaml.cs">
       <DependentUpon>SearchPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\VisualCanvas.cs" />
     <Compile Include="Converters\FileSizeConverter.cs" />
     <Compile Include="Converters\PrefixConverter.cs" />
     <Compile Include="Converters\PrettyXmlConverter.cs" />
+    <Compile Include="Helpers\WinFormsWpfExtensions.cs" />
     <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Traversal\GraphicalElementBuilderVisitor.cs" />
+    <Compile Include="Traversal\GraphicalElementContext.cs" />
     <Compile Include="Traversal\HotspotBuilderVisitor.cs" />
     <Compile Include="Traversal\HotspotContext.cs" />
     <Compile Include="Traversal\XCFDocumentBuilderVisitor.cs" />
@@ -107,6 +111,9 @@
     <Compile Include="ViewModels\Nodes\UnsupportedContainer.cs" />
     <Compile Include="ViewModels\Nodes\UnsupportedCounter.cs" />
     <Compile Include="ViewModels\Nodes\UnsupportedNode.cs" />
+    <Compile Include="Visuals\TextVisual.cs" />
+    <Compile Include="Visuals\VisualBase.cs" />
+    <Compile Include="Visuals\VisualRoot.cs" />
     <Page Include="Controls\SearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
